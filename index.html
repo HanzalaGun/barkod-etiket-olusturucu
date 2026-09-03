@@ -250,7 +250,11 @@ ul.arac__uyari li{font-size:13px; color:var(--sc-hata)}
 
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.12.3/dist/JsBarcode.all.min.js"></script>
 <script>
-/* ---------- diller ---------- */
+/* ---------- diller ----------
+   İKİZİ VAR: bu tablonun birebir kopyası hanzala.com.tr deposunda
+   `src/utilities/aracMetin.ts` içinde duruyor — aynı aracın React sürümü
+   oradan besleniyor. Buradaki bir metni değiştirirsen ORAYI DA güncelle,
+   yoksa iki sürüm farklı şey söylemeye başlıyor. */
 const DILLER = ['tr', 'en', 'ru', 'de', 'ar']
 const RTL = ['ar']
 const DIL_ADI = { tr: 'Türkçe', en: 'English', ru: 'Русский', de: 'Deutsch', ar: 'العربية' }
