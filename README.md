@@ -1,3 +1,5 @@
+**Türkçe** · [English](README.en.md) · [Русский](README.ru.md) · [Deutsch](README.de.md) · [العربية](README.ar.md)
+
 # Barkod etiket oluşturucu
 
 Ürün listesinden yazdırılabilir barkod etiketi hazırlar. Tek bir `index.html`
