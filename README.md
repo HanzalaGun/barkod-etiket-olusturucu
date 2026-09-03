@@ -17,10 +17,24 @@ dosyası — kurulum, derleme, sunucu yok. Çift tıklayınca açılır.
   **termal etiket yazıcısı** için özel mm ölçüsü. Rulo modunda her etiket
   kendi sayfasına gider.
 - **Adet sütunu** — aynı ürünün kaç etiketi basılacağını yazarsınız.
-- **Eski fiyat sütunu** — üstü çizili eski fiyat ve indirim yüzdesi.
-- Dört düzen, yazı ölçeği, kalın/eğik, ad ve fiyatı gizleme.
+- Üç düzen, yazı ölçeği, kalın/eğik, ad ve fiyatı gizleme.
+
+Fiyatı öne çıkaran etiket, indirim yüzdesi ve üretim yeri bu araçta **yok** —
+onlar mevzuatın raf etiketinden istediği şeyler ve
+[raf ve fiyat etiketi oluşturucuda](https://github.com/HanzalaGun/raf-ve-fiyat-etiketi)
+duruyor. Burada kod okutulur, orada fiyat okunur.
 
 Veri hiçbir yere gitmiyor: girdiğiniz liste tarayıcıdan çıkmıyor, sunucu yok.
+
+<br>
+
+## Kardeş araç
+
+Rafa asılacak fiyat etiketi arıyorsanız o ayrı bir araç:
+[**raf ve fiyat etiketi oluşturucu**](https://github.com/HanzalaGun/raf-ve-fiyat-etiketi)
+— birim fiyatı kendi hesaplıyor ve Fiyat Etiketi Yönetmeliği'nin zorunlu
+tuttuğu alanlardan eksik olanı söylüyor. Burada kod okutulur, orada fiyat
+okunur.
 
 <br>
 
@@ -31,10 +45,10 @@ Her satıra bir ürün, sütunlar **sekme**, **noktalı virgül** veya **boru** 
 ```
 Türk kahvesi	8690000000012	45	2
 Çay	869000000002	20
-İndirimli çay	8690000000012	20	1	35
 ```
 
-`ad · barkod · fiyat · adet · eski fiyat` — adet boşsa 1 kabul edilir.
+`ad · barkod · fiyat · adet` — adet boşsa 1 kabul edilir. Fiyat isteğe bağlı;
+kasa zaten koddan okuyor.
 
 Satırda bu üç ayraçtan hiçbiri yoksa virgüle düşülür. Virgül bilerek son çare:
 Türkçe fiyat `145,90` yazılıyor ve virgülü ayraç saymak fiyatı 145, adedi 90

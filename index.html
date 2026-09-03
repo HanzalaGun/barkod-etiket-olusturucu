@@ -115,15 +115,9 @@ ul.arac__uyari li{font-size:13px; color:var(--sc-hata)}
   font-style:var(--et-egik,normal);
   text-align:center; line-height:1.15; max-height:2.4em; overflow:hidden}
 .etiket__fiyat{font-size:calc(13px * var(--et-olcek,1)); font-weight:800}
-.etiket__fiyat--indirim{display:flex; align-items:baseline; gap:1mm}
-.etiket__eski{font-size:.7em; font-weight:400; opacity:.7}
-.etiket__yuzde{font-size:.62em; font-style:normal; font-weight:700;
-  background:#000; color:#fff; padding:0 .3em; border-radius:2px}
 /* viewBox JS'te yazılıyor; burada svg tam genişliği kaplayıp oranıyla
    yükseklik alıyor. */
 .etiket svg{display:block; width:100%; height:auto; max-height:100%}
-.etiket--fiyat-baskin .etiket__ad{font-size:calc(7.5px * var(--et-olcek,1)); opacity:.85}
-.etiket--fiyat-baskin .etiket__fiyat{font-size:calc(20px * var(--et-olcek,1)); line-height:1}
 .etiket--yan-yana .etiket__satir{display:flex; align-items:baseline;
   justify-content:space-between; gap:2mm; width:100%}
 .etiket--yan-yana .etiket__ad{text-align:left; max-height:1.3em}
@@ -262,146 +256,236 @@ const DIL_ADI = { tr: 'Türkçe', en: 'English', ru: 'Русский', de: 'Deut
 const YORE = { tr: 'tr-TR', en: 'en-US', ru: 'ru-RU', de: 'de-DE', ar: 'ar-EG-u-nu-latn' }
 
 const METIN = {
-  tr: {
-    baslik: 'Barkod oluşturucu (A4 etiket baskısı) — ürün etiketi hazırla ve yazdır',
-    aciklama: 'Ürün listesinden EAN-13 veya Code 128 barkodlu etiket sayfası hazırlar. A4 etiket tabakası ve termal etiket yazıcısı için. Tarayıcıda çalışır, veri sunucuya gitmez.',
-    h1: 'Barkod oluşturucu (A4 etiket baskısı)',
-    ozet: 'Ürün listesini yapıştırın, barkodlu etiket sayfasını yazdırın. A4 etiket tabakası veya termal etiket yazıcısı için. Her şey tarayıcıda oluyor — girdiğiniz liste hiçbir sunucuya gitmiyor.',
-    ucretsiz: 'ücretsiz, üyeliksiz',
-    girdiAnlat: 'Ürünler — her satıra bir ürün: <b>ad · barkod · fiyat · adet · eski fiyat</b> (sekme, noktalı virgül veya boru ile ayır; adet boşsa 1. Fiyatta virgül kullanabilirsiniz. Beşinci sütuna eski fiyatı yazarsanız etikette üstü çizili çıkar ve indirim yüzdesi hesaplanır.)',
-    ornek: 'Türk kahvesi\t8690000000012\t45\t2\nÇay\t869000000002\t20',
-    cikti: 'Çıktı', modTabaka: 'A4 etiket tabakası', modRulo: 'Etiket yazıcısı — özel boyut',
-    tabakaSec: 'Etiket tabakası', en: 'En (mm)', boy: 'Boy (mm)', icBosluk: 'İç boşluk (mm)',
-    barkodTipi: 'Barkod tipi', tipEan: 'EAN-13 (perakende)', tipCode: 'Code 128 (harf de alır)',
-    duzen: 'Düzen', yaziOlcegi: 'Yazı ölçeği',
-    onayAd: 'ürün adı', onayFiyat: 'fiyat', onayKalin: 'kalın', onayEgik: 'eğik',
-    sablonlar: ['Ad üstte', 'Fiyat baskın', 'Ad ve fiyat yan yana', 'Sade — yalnız barkod'],
-    tabakaAd: '{g}×{y} mm — {s}×{r} ({n} etiket)',
-    mm: 'mm',
-    hazirOlculer: 'hazır ölçüler:',
-    adsiz: '(adsız)',
-    hataKontrol: 'kontrol hanesi tutmuyor',
-    hataHane: 'EAN-13 için 12 veya 13 hane gerekir ({n} girildi)',
-    kirpma: '{tum} etiket istendi, {tavan} tanesi basılacak. Kalan {kalan} etiket için listeyi bölün — tarayıcı bundan fazlasını tek seferde çizemiyor.',
-    sayac: '{n} etiket', sayacRulo: ' · {g}×{y} mm · her etiket ayrı sayfa',
-    ilkGoster: 'ilk {n} tanesini göster', hepsiniGoster: 'hepsini göster ({n})',
-    yazdir: 'yazdır / PDF',
-    onizlemeNot: 'Önizlemede ilk {o} etiket var; yazdırınca {n} etiketin hepsi çıkar.',
-    altbilgi: 'Kaynak kodu MIT lisansı ile açık — istediğiniz gibi kullanın, değiştirin. Bu araç {site} için yazıldı; orada {araclar} da var.',
-    altSite: 'hanzala.com.tr', altAraclar: 'başka ücretsiz araçlar',
+  "tr": {
+    "baslik": "Barkod oluşturucu (A4 etiket baskısı) — ürün etiketi hazırla ve yazdır",
+    "aciklama": "Ürün listesinden EAN-13 veya Code 128 barkodlu etiket sayfası hazırlar. A4 etiket tabakası ve termal etiket yazıcısı için. Tarayıcıda çalışır, veri sunucuya gitmez.",
+    "h1": "Barkod oluşturucu (A4 etiket baskısı)",
+    "ozet": "Ürün listesini yapıştırın, barkodlu etiket sayfasını yazdırın. A4 etiket tabakası veya termal etiket yazıcısı için. Her şey tarayıcıda oluyor — girdiğiniz liste hiçbir sunucuya gitmiyor.",
+    "ucretsiz": "ücretsiz, üyeliksiz",
+    "girdiAnlat": "Ürünler — her satıra bir ürün: <b>ad · barkod · fiyat · adet</b> (sekme, noktalı virgül veya boru ile ayır; adet boşsa 1. Fiyat isteğe bağlı — kasa koddan okuyor.)",
+    "ornek": "Türk kahvesi\t8690000000012\t45\t2\nÇay\t869000000002\t20",
+    "cikti": "Çıktı",
+    "modTabaka": "A4 etiket tabakası",
+    "modRulo": "Etiket yazıcısı — özel boyut",
+    "tabakaSec": "Etiket tabakası",
+    "en": "En (mm)",
+    "boy": "Boy (mm)",
+    "icBosluk": "İç boşluk (mm)",
+    "barkodTipi": "Barkod tipi",
+    "tipEan": "EAN-13 (perakende)",
+    "tipCode": "Code 128 (harf de alır)",
+    "duzen": "Düzen",
+    "yaziOlcegi": "Yazı ölçeği",
+    "onayAd": "ürün adı",
+    "onayFiyat": "fiyat",
+    "onayKalin": "kalın",
+    "onayEgik": "eğik",
+    "sablonlar": [
+      "Ad üstte",
+      "Ad ve barkod yan yana",
+      "Sade — yalnız barkod"
+    ],
+    "tabakaAd": "{g}×{y} mm — {s}×{r} ({n} etiket)",
+    "mm": "mm",
+    "hazirOlculer": "hazır ölçüler:",
+    "adsiz": "(adsız)",
+    "hataKontrol": "kontrol hanesi tutmuyor",
+    "hataHane": "EAN-13 için 12 veya 13 hane gerekir ({n} girildi)",
+    "kirpma": "{tum} etiket istendi, {tavan} tanesi basılacak. Kalan {kalan} etiket için listeyi bölün — tarayıcı bundan fazlasını tek seferde çizemiyor.",
+    "sayac": "{n} etiket",
+    "sayacRulo": " · {g}×{y} mm · her etiket ayrı sayfa",
+    "ilkGoster": "ilk {n} tanesini göster",
+    "hepsiniGoster": "hepsini göster ({n})",
+    "yazdir": "yazdır / PDF",
+    "onizlemeNot": "Önizlemede ilk {o} etiket var; yazdırınca {n} etiketin hepsi çıkar.",
+    "altbilgi": "Kaynak kodu MIT lisansı ile açık — istediğiniz gibi kullanın, değiştirin. Bu araç {site} için yazıldı; orada {araclar} da var.",
+    "altSite": "hanzala.com.tr",
+    "altAraclar": "başka ücretsiz araçlar"
   },
-  en: {
-    baslik: 'Barcode generator (A4 label printing) — build and print product labels',
-    aciklama: 'Turns a product list into a printable sheet of EAN-13 or Code 128 labels, for A4 label sheets and thermal label printers. Runs in your browser; nothing is sent to a server.',
-    h1: 'Barcode generator (A4 label printing)',
-    ozet: 'Paste your product list and print the label sheet. For A4 label sheets or a thermal label printer. Everything happens in your browser — the list you type never reaches a server.',
-    ucretsiz: 'free, no sign-up',
-    girdiAnlat: 'Products — one per line: <b>name · barcode · price · quantity · old price</b> (separate with a tab, semicolon or pipe; blank quantity means 1. Prices may use a comma. Put an old price in the fifth column and the label shows it struck through with the discount percentage.)',
-    ornek: 'Ground coffee\t8690000000012\t45\t2\nTea\t869000000002\t20',
-    cikti: 'Output', modTabaka: 'A4 label sheet', modRulo: 'Label printer — custom size',
-    tabakaSec: 'Label sheet', en: 'Width (mm)', boy: 'Height (mm)', icBosluk: 'Padding (mm)',
-    barkodTipi: 'Barcode type', tipEan: 'EAN-13 (retail)', tipCode: 'Code 128 (takes letters)',
-    duzen: 'Layout', yaziOlcegi: 'Text scale',
-    onayAd: 'product name', onayFiyat: 'price', onayKalin: 'bold', onayEgik: 'italic',
-    sablonlar: ['Name on top', 'Price first', 'Name and price side by side', 'Plain — barcode only'],
-    tabakaAd: '{g}×{y} mm — {s}×{r} ({n} labels)',
-    mm: 'mm',
-    hazirOlculer: 'common sizes:',
-    adsiz: '(unnamed)',
-    hataKontrol: 'check digit does not match',
-    hataHane: 'EAN-13 needs 12 or 13 digits ({n} given)',
-    kirpma: '{tum} labels requested, {tavan} will be printed. Split the list for the remaining {kalan} — the browser cannot draw more than this at once.',
-    sayac: '{n} labels', sayacRulo: ' · {g}×{y} mm · one label per page',
-    ilkGoster: 'show the first {n}', hepsiniGoster: 'show all ({n})',
-    yazdir: 'print / PDF',
-    onizlemeNot: 'The preview shows the first {o} labels; printing produces all {n}.',
-    altbilgi: 'Source code is open under the MIT licence — use it, change it, sell it. This tool was written for {site}, where there are {araclar} too.',
-    altSite: 'hanzala.com.tr', altAraclar: 'more free tools',
+  "en": {
+    "baslik": "Barcode generator (A4 label printing) — build and print product labels",
+    "aciklama": "Turns a product list into a printable sheet of EAN-13 or Code 128 labels, for A4 label sheets and thermal label printers. Runs in your browser; nothing is sent to a server.",
+    "h1": "Barcode generator (A4 label printing)",
+    "ozet": "Paste your product list and print the label sheet. For A4 label sheets or a thermal label printer. Everything happens in your browser — the list you type never reaches a server.",
+    "ucretsiz": "free, no sign-up",
+    "girdiAnlat": "Products — one per line: <b>name · barcode · price · quantity</b> (separate with a tab, semicolon or pipe; blank quantity means 1. The price is optional — the till reads the code.)",
+    "ornek": "Ground coffee\t8690000000012\t45\t2\nTea\t869000000002\t20",
+    "cikti": "Output",
+    "modTabaka": "A4 label sheet",
+    "modRulo": "Label printer — custom size",
+    "tabakaSec": "Label sheet",
+    "en": "Width (mm)",
+    "boy": "Height (mm)",
+    "icBosluk": "Padding (mm)",
+    "barkodTipi": "Barcode type",
+    "tipEan": "EAN-13 (retail)",
+    "tipCode": "Code 128 (takes letters)",
+    "duzen": "Layout",
+    "yaziOlcegi": "Text scale",
+    "onayAd": "product name",
+    "onayFiyat": "price",
+    "onayKalin": "bold",
+    "onayEgik": "italic",
+    "sablonlar": [
+      "Name on top",
+      "Name and barcode side by side",
+      "Plain — barcode only"
+    ],
+    "tabakaAd": "{g}×{y} mm — {s}×{r} ({n} labels)",
+    "mm": "mm",
+    "hazirOlculer": "common sizes:",
+    "adsiz": "(unnamed)",
+    "hataKontrol": "check digit does not match",
+    "hataHane": "EAN-13 needs 12 or 13 digits ({n} given)",
+    "kirpma": "{tum} labels requested, {tavan} will be printed. Split the list for the remaining {kalan} — the browser cannot draw more than this at once.",
+    "sayac": "{n} labels",
+    "sayacRulo": " · {g}×{y} mm · one label per page",
+    "ilkGoster": "show the first {n}",
+    "hepsiniGoster": "show all ({n})",
+    "yazdir": "print / PDF",
+    "onizlemeNot": "The preview shows the first {o} labels; printing produces all {n}.",
+    "altbilgi": "Source code is open under the MIT licence — use it, change it, sell it. This tool was written for {site}, where there are {araclar} too.",
+    "altSite": "hanzala.com.tr",
+    "altAraclar": "more free tools"
   },
-  ru: {
-    baslik: 'Генератор штрихкодов (печать этикеток A4) — подготовка и печать',
-    aciklama: 'Превращает список товаров в лист этикеток со штрихкодом EAN-13 или Code 128 — для листов А4 и термопринтеров. Работает в браузере, данные никуда не отправляются.',
-    h1: 'Генератор штрихкодов (печать этикеток A4)',
-    ozet: 'Вставьте список товаров и распечатайте лист этикеток. Для листов А4 или термопринтера этикеток. Всё происходит в браузере — введённый список никуда не уходит.',
-    ucretsiz: 'бесплатно, без регистрации',
-    girdiAnlat: 'Товары — по одному в строке: <b>название · штрихкод · цена · количество · старая цена</b> (разделяйте табуляцией, точкой с запятой или вертикальной чертой; пустое количество — это 1. В цене можно ставить запятую. Старая цена в пятом столбце выводится зачёркнутой, со скидкой в процентах.)',
-    ornek: 'Молотый кофе\t8690000000012\t45\t2\nЧай\t869000000002\t20',
-    cikti: 'Вывод', modTabaka: 'Лист этикеток А4', modRulo: 'Термопринтер — свой размер',
-    tabakaSec: 'Лист этикеток', en: 'Ширина (мм)', boy: 'Высота (мм)', icBosluk: 'Отступ (мм)',
-    barkodTipi: 'Тип штрихкода', tipEan: 'EAN-13 (розница)', tipCode: 'Code 128 (с буквами)',
-    duzen: 'Раскладка', yaziOlcegi: 'Размер текста',
-    onayAd: 'название', onayFiyat: 'цена', onayKalin: 'жирный', onayEgik: 'курсив',
-    sablonlar: ['Название сверху', 'Крупная цена', 'Название и цена в строку', 'Просто штрихкод'],
-    tabakaAd: '{g}×{y} мм — {s}×{r} ({n} шт.)',
-    mm: 'мм',
-    hazirOlculer: 'частые размеры:',
-    adsiz: '(без названия)',
-    hataKontrol: 'контрольная цифра не сходится',
-    hataHane: 'для EAN-13 нужно 12 или 13 цифр (введено {n})',
-    kirpma: 'Запрошено {tum} этикеток, будет напечатано {tavan}. Оставшиеся {kalan} разбейте на отдельный список — больше браузер за раз не нарисует.',
-    sayac: 'этикеток: {n}', sayacRulo: ' · {g}×{y} мм · каждая этикетка на своей странице',
-    ilkGoster: 'показать первые {n}', hepsiniGoster: 'показать все ({n})',
-    yazdir: 'печать / PDF',
-    onizlemeNot: 'В предпросмотре первые {o} этикеток; при печати выйдут все {n}.',
-    altbilgi: 'Исходный код открыт по лицензии MIT — пользуйтесь, меняйте, продавайте. Инструмент написан для {site}, там есть и {araclar}.',
-    altSite: 'hanzala.com.tr', altAraclar: 'другие бесплатные инструменты',
+  "ru": {
+    "baslik": "Генератор штрихкодов (печать этикеток A4) — подготовка и печать",
+    "aciklama": "Превращает список товаров в лист этикеток со штрихкодом EAN-13 или Code 128 — для листов А4 и термопринтеров. Работает в браузере, данные никуда не отправляются.",
+    "h1": "Генератор штрихкодов (печать этикеток A4)",
+    "ozet": "Вставьте список товаров и распечатайте лист этикеток. Для листов А4 или термопринтера этикеток. Всё происходит в браузере — введённый список никуда не уходит.",
+    "ucretsiz": "бесплатно, без регистрации",
+    "girdiAnlat": "Товары — по одному в строке: <b>название · штрихкод · цена · количество</b> (разделяйте табуляцией, точкой с запятой или вертикальной чертой; пустое количество — 1. Цена необязательна: касса читает код.)",
+    "ornek": "Молотый кофе\t8690000000012\t45\t2\nЧай\t869000000002\t20",
+    "cikti": "Вывод",
+    "modTabaka": "Лист этикеток А4",
+    "modRulo": "Термопринтер — свой размер",
+    "tabakaSec": "Лист этикеток",
+    "en": "Ширина (мм)",
+    "boy": "Высота (мм)",
+    "icBosluk": "Отступ (мм)",
+    "barkodTipi": "Тип штрихкода",
+    "tipEan": "EAN-13 (розница)",
+    "tipCode": "Code 128 (с буквами)",
+    "duzen": "Раскладка",
+    "yaziOlcegi": "Размер текста",
+    "onayAd": "название",
+    "onayFiyat": "цена",
+    "onayKalin": "жирный",
+    "onayEgik": "курсив",
+    "sablonlar": [
+      "Название сверху",
+      "Название и штрихкод рядом",
+      "Просто — только штрихкод"
+    ],
+    "tabakaAd": "{g}×{y} мм — {s}×{r} ({n} шт.)",
+    "mm": "мм",
+    "hazirOlculer": "частые размеры:",
+    "adsiz": "(без названия)",
+    "hataKontrol": "контрольная цифра не сходится",
+    "hataHane": "для EAN-13 нужно 12 или 13 цифр (введено {n})",
+    "kirpma": "Запрошено {tum} этикеток, будет напечатано {tavan}. Оставшиеся {kalan} разбейте на отдельный список — больше браузер за раз не нарисует.",
+    "sayac": "этикеток: {n}",
+    "sayacRulo": " · {g}×{y} мм · каждая этикетка на своей странице",
+    "ilkGoster": "показать первые {n}",
+    "hepsiniGoster": "показать все ({n})",
+    "yazdir": "печать / PDF",
+    "onizlemeNot": "В предпросмотре первые {o} этикеток; при печати выйдут все {n}.",
+    "altbilgi": "Исходный код открыт по лицензии MIT — пользуйтесь, меняйте, продавайте. Инструмент написан для {site}, там есть и {araclar}.",
+    "altSite": "hanzala.com.tr",
+    "altAraclar": "другие бесплатные инструменты"
   },
-  de: {
-    baslik: 'Barcode-Generator (A4-Etikettendruck) — Produktetiketten bauen und drucken',
-    aciklama: 'Macht aus einer Produktliste einen druckfertigen Etikettenbogen mit EAN-13 oder Code 128 — für A4-Etikettenbögen und Thermodrucker. Läuft im Browser, es werden keine Daten gesendet.',
-    h1: 'Barcode-Generator (A4-Etikettendruck)',
-    ozet: 'Produktliste einfügen, Etikettenbogen drucken. Für A4-Etikettenbögen oder einen Thermo-Etikettendrucker. Alles passiert im Browser — Ihre Liste verlässt das Gerät nicht.',
-    ucretsiz: 'kostenlos, ohne Anmeldung',
-    girdiAnlat: 'Produkte — eines je Zeile: <b>Name · Barcode · Preis · Menge · alter Preis</b> (mit Tabulator, Semikolon oder senkrechtem Strich trennen; leere Menge heißt 1. Im Preis ist ein Komma erlaubt. Ein alter Preis in der fünften Spalte erscheint durchgestrichen, mit Rabatt in Prozent.)',
-    ornek: 'Gemahlener Kaffee\t8690000000012\t45\t2\nTee\t869000000002\t20',
-    cikti: 'Ausgabe', modTabaka: 'A4-Etikettenbogen', modRulo: 'Etikettendrucker — eigenes Maß',
-    tabakaSec: 'Etikettenbogen', en: 'Breite (mm)', boy: 'Höhe (mm)', icBosluk: 'Innenabstand (mm)',
-    barkodTipi: 'Barcode-Typ', tipEan: 'EAN-13 (Handel)', tipCode: 'Code 128 (auch Buchstaben)',
-    duzen: 'Layout', yaziOlcegi: 'Schriftgröße',
-    onayAd: 'Produktname', onayFiyat: 'Preis', onayKalin: 'fett', onayEgik: 'kursiv',
-    sablonlar: ['Name oben', 'Preis im Vordergrund', 'Name und Preis nebeneinander', 'Schlicht — nur Barcode'],
-    tabakaAd: '{g}×{y} mm — {s}×{r} ({n} Etiketten)',
-    mm: 'mm',
-    hazirOlculer: 'gängige Maße:',
-    adsiz: '(ohne Namen)',
-    hataKontrol: 'Prüfziffer stimmt nicht',
-    hataHane: 'EAN-13 braucht 12 oder 13 Ziffern ({n} eingegeben)',
-    kirpma: '{tum} Etiketten angefordert, {tavan} werden gedruckt. Teilen Sie die Liste für die restlichen {kalan} — mehr zeichnet der Browser nicht auf einmal.',
-    sayac: '{n} Etiketten', sayacRulo: ' · {g}×{y} mm · ein Etikett je Seite',
-    ilkGoster: 'die ersten {n} zeigen', hepsiniGoster: 'alle zeigen ({n})',
-    yazdir: 'drucken / PDF',
-    onizlemeNot: 'Die Vorschau zeigt die ersten {o} Etiketten; gedruckt werden alle {n}.',
-    altbilgi: 'Der Quellcode steht unter der MIT-Lizenz — nutzen, ändern, verkaufen. Dieses Werkzeug entstand für {site}; dort gibt es auch {araclar}.',
-    altSite: 'hanzala.com.tr', altAraclar: 'weitere kostenlose Werkzeuge',
+  "de": {
+    "baslik": "Barcode-Generator (A4-Etikettendruck) — Produktetiketten bauen und drucken",
+    "aciklama": "Macht aus einer Produktliste einen druckfertigen Etikettenbogen mit EAN-13 oder Code 128 — für A4-Etikettenbögen und Thermodrucker. Läuft im Browser, es werden keine Daten gesendet.",
+    "h1": "Barcode-Generator (A4-Etikettendruck)",
+    "ozet": "Produktliste einfügen, Etikettenbogen drucken. Für A4-Etikettenbögen oder einen Thermo-Etikettendrucker. Alles passiert im Browser — Ihre Liste verlässt das Gerät nicht.",
+    "ucretsiz": "kostenlos, ohne Anmeldung",
+    "girdiAnlat": "Produkte — eines pro Zeile: <b>Name · Barcode · Preis · Menge</b> (mit Tabulator, Semikolon oder senkrechtem Strich trennen; leere Menge heißt 1. Der Preis ist optional — die Kasse liest den Code.)",
+    "ornek": "Gemahlener Kaffee\t8690000000012\t45\t2\nTee\t869000000002\t20",
+    "cikti": "Ausgabe",
+    "modTabaka": "A4-Etikettenbogen",
+    "modRulo": "Etikettendrucker — eigenes Maß",
+    "tabakaSec": "Etikettenbogen",
+    "en": "Breite (mm)",
+    "boy": "Höhe (mm)",
+    "icBosluk": "Innenabstand (mm)",
+    "barkodTipi": "Barcode-Typ",
+    "tipEan": "EAN-13 (Handel)",
+    "tipCode": "Code 128 (auch Buchstaben)",
+    "duzen": "Layout",
+    "yaziOlcegi": "Schriftgröße",
+    "onayAd": "Produktname",
+    "onayFiyat": "Preis",
+    "onayKalin": "fett",
+    "onayEgik": "kursiv",
+    "sablonlar": [
+      "Name oben",
+      "Name und Barcode nebeneinander",
+      "Schlicht — nur Barcode"
+    ],
+    "tabakaAd": "{g}×{y} mm — {s}×{r} ({n} Etiketten)",
+    "mm": "mm",
+    "hazirOlculer": "gängige Maße:",
+    "adsiz": "(ohne Namen)",
+    "hataKontrol": "Prüfziffer stimmt nicht",
+    "hataHane": "EAN-13 braucht 12 oder 13 Ziffern ({n} eingegeben)",
+    "kirpma": "{tum} Etiketten angefordert, {tavan} werden gedruckt. Teilen Sie die Liste für die restlichen {kalan} — mehr zeichnet der Browser nicht auf einmal.",
+    "sayac": "{n} Etiketten",
+    "sayacRulo": " · {g}×{y} mm · ein Etikett je Seite",
+    "ilkGoster": "die ersten {n} zeigen",
+    "hepsiniGoster": "alle zeigen ({n})",
+    "yazdir": "drucken / PDF",
+    "onizlemeNot": "Die Vorschau zeigt die ersten {o} Etiketten; gedruckt werden alle {n}.",
+    "altbilgi": "Der Quellcode steht unter der MIT-Lizenz — nutzen, ändern, verkaufen. Dieses Werkzeug entstand für {site}; dort gibt es auch {araclar}.",
+    "altSite": "hanzala.com.tr",
+    "altAraclar": "weitere kostenlose Werkzeuge"
   },
-  ar: {
-    baslik: 'مولّد الباركود (طباعة بطاقات A4) — جهّز ملصقات المنتجات واطبعها',
-    aciklama: 'يحوّل قائمة المنتجات إلى صفحة ملصقات بباركود EAN-13 أو Code 128، لأوراق A4 ولطابعات الملصقات الحرارية. يعمل داخل المتصفح ولا تُرسل أي بيانات.',
-    h1: 'مولّد الباركود (طباعة بطاقات A4)',
-    ozet: 'الصق قائمة المنتجات واطبع صفحة الملصقات. لأوراق ملصقات A4 أو لطابعة ملصقات حرارية. كل شيء يجري داخل متصفحك — القائمة التي تكتبها لا تصل إلى أي خادم.',
-    ucretsiz: 'مجاني، بلا تسجيل',
-    girdiAnlat: 'المنتجات — منتج في كل سطر: <b>الاسم · الباركود · السعر · الكمية · السعر القديم</b> (افصل بمسافة جدولة أو فاصلة منقوطة أو شرطة رأسية؛ الكمية الفارغة تعني 1. يمكن استخدام الفاصلة في السعر. إذا كتبت سعرًا قديمًا في العمود الخامس يظهر مشطوبًا مع نسبة الخصم.)',
-    ornek: 'قهوة مطحونة\t8690000000012\t45\t2\nشاي\t869000000002\t20',
-    cikti: 'المخرجات', modTabaka: 'ورقة ملصقات A4', modRulo: 'طابعة ملصقات — مقاس مخصص',
-    tabakaSec: 'ورقة الملصقات', en: 'العرض (مم)', boy: 'الارتفاع (مم)', icBosluk: 'الحشوة الداخلية (مم)',
-    barkodTipi: 'نوع الباركود', tipEan: 'EAN-13 (التجزئة)', tipCode: 'Code 128 (يقبل الحروف)',
-    duzen: 'التخطيط', yaziOlcegi: 'حجم الخط',
-    onayAd: 'اسم المنتج', onayFiyat: 'السعر', onayKalin: 'عريض', onayEgik: 'مائل',
-    sablonlar: ['الاسم في الأعلى', 'السعر بارز', 'الاسم والسعر جنبًا إلى جنب', 'بسيط — الباركود فقط'],
-    tabakaAd: '{g}×{y} مم — {s}×{r} ({n} ملصقًا)',
-    mm: 'مم',
-    hazirOlculer: 'مقاسات شائعة:',
-    adsiz: '(بلا اسم)',
-    hataKontrol: 'رقم التحقق غير مطابق',
-    hataHane: 'يحتاج EAN-13 إلى 12 أو 13 رقمًا (أُدخل {n})',
-    kirpma: 'طُلب {tum} ملصقًا، وسيُطبع {tavan}. قسّم القائمة من أجل الـ{kalan} المتبقية — لا يستطيع المتصفح رسم أكثر من ذلك دفعة واحدة.',
-    sayac: '{n} ملصقًا', sayacRulo: ' · {g}×{y} مم · كل ملصق في صفحة',
-    ilkGoster: 'اعرض أول {n}', hepsiniGoster: 'اعرض الكل ({n})',
-    yazdir: 'طباعة / PDF',
-    onizlemeNot: 'المعاينة تعرض أول {o} ملصقات؛ الطباعة تُخرج الـ{n} كلها.',
-    altbilgi: 'الشيفرة المصدرية مفتوحة برخصة MIT — استخدمها وعدّلها وبعها. كُتبت هذه الأداة من أجل {site}، وهناك {araclar} أيضًا.',
-    altSite: 'hanzala.com.tr', altAraclar: 'أدوات مجانية أخرى',
-  },
+  "ar": {
+    "baslik": "مولّد الباركود (طباعة بطاقات A4) — جهّز ملصقات المنتجات واطبعها",
+    "aciklama": "يحوّل قائمة المنتجات إلى صفحة ملصقات بباركود EAN-13 أو Code 128، لأوراق A4 ولطابعات الملصقات الحرارية. يعمل داخل المتصفح ولا تُرسل أي بيانات.",
+    "h1": "مولّد الباركود (طباعة بطاقات A4)",
+    "ozet": "الصق قائمة المنتجات واطبع صفحة الملصقات. لأوراق ملصقات A4 أو لطابعة ملصقات حرارية. كل شيء يجري داخل متصفحك — القائمة التي تكتبها لا تصل إلى أي خادم.",
+    "ucretsiz": "مجاني، بلا تسجيل",
+    "girdiAnlat": "المنتجات — منتج في كل سطر: <b>الاسم · الباركود · السعر · العدد</b> (افصل بعلامة جدولة أو فاصلة منقوطة أو شرطة رأسية؛ والعدد الفارغ يعني 1. والسعر اختياري — فالصندوق يقرأ الكود.)",
+    "ornek": "قهوة مطحونة\t8690000000012\t45\t2\nشاي\t869000000002\t20",
+    "cikti": "المخرجات",
+    "modTabaka": "ورقة ملصقات A4",
+    "modRulo": "طابعة ملصقات — مقاس مخصص",
+    "tabakaSec": "ورقة الملصقات",
+    "en": "العرض (مم)",
+    "boy": "الارتفاع (مم)",
+    "icBosluk": "الحشوة الداخلية (مم)",
+    "barkodTipi": "نوع الباركود",
+    "tipEan": "EAN-13 (التجزئة)",
+    "tipCode": "Code 128 (يقبل الحروف)",
+    "duzen": "التخطيط",
+    "yaziOlcegi": "حجم الخط",
+    "onayAd": "اسم المنتج",
+    "onayFiyat": "السعر",
+    "onayKalin": "عريض",
+    "onayEgik": "مائل",
+    "sablonlar": [
+      "الاسم أعلى",
+      "الاسم والباركود جنبًا إلى جنب",
+      "بسيط — الباركود وحده"
+    ],
+    "tabakaAd": "{g}×{y} مم — {s}×{r} ({n} ملصقًا)",
+    "mm": "مم",
+    "hazirOlculer": "مقاسات شائعة:",
+    "adsiz": "(بلا اسم)",
+    "hataKontrol": "رقم التحقق غير مطابق",
+    "hataHane": "يحتاج EAN-13 إلى 12 أو 13 رقمًا (أُدخل {n})",
+    "kirpma": "طُلب {tum} ملصقًا، وسيُطبع {tavan}. قسّم القائمة من أجل الـ{kalan} المتبقية — لا يستطيع المتصفح رسم أكثر من ذلك دفعة واحدة.",
+    "sayac": "{n} ملصقًا",
+    "sayacRulo": " · {g}×{y} مم · كل ملصق في صفحة",
+    "ilkGoster": "اعرض أول {n}",
+    "hepsiniGoster": "اعرض الكل ({n})",
+    "yazdir": "طباعة / PDF",
+    "onizlemeNot": "المعاينة تعرض أول {o} ملصقات؛ الطباعة تُخرج الـ{n} كلها.",
+    "altbilgi": "الشيفرة المصدرية مفتوحة برخصة MIT — استخدمها وعدّلها وبعها. كُتبت هذه الأداة من أجل {site}، وهناك {araclar} أيضًا.",
+    "altSite": "hanzala.com.tr",
+    "altAraclar": "أدوات مجانية أخرى"
+  }
 }
 
 /** Girilen dili doğrular; tanımadığını Türkçeye düşürür. */
@@ -425,8 +509,11 @@ const RULO_HAZIR = [
   { g: 40, y: 25 }, { g: 50, y: 30 }, { g: 58, y: 40 }, { g: 100, y: 50 },
 ]
 /* Etiket düzenleri. Sıralama ve vurgu değişiyor, ölçü değişmiyor.
-   Adlar METIN.sablonlar'da, sıraları bu diziyle aynı. */
-const SABLON = ['ad-ustte', 'fiyat-baskin', 'yan-yana', 'sade']
+   Adlar METIN.sablonlar'da, sıraları bu diziyle aynı.
+
+   'fiyat-baskin' KALDIRILDI: fiyatı öne çıkaran etiket raf etiketinin işi,
+   burada barkod okutuluyor. İki araç aynı şeyi yapmasın diye ayrıldılar. */
+const SABLON = ['ad-ustte', 'yan-yana', 'sade']
 /* Ekranda kaç etiket çizilsin. Baskıya HEPSİ gidiyor; bu yalnızca önizleme. */
 const ONIZLEME = 20
 /* Üstünde tarayıcı SVG çizmekte zorlanıyor; sessizce kırpmıyoruz, uyarı basıyoruz. */
@@ -458,7 +545,6 @@ const ayikla = (ham) =>
     return {
       ad: p[0] || '',
       adet: Math.max(1, Math.min(99, Number(p[3]) || 1)),
-      eskiFiyat: p[4] || '',
       fiyat: p[2] || '',
       kod: (p[1] || '').replace(/\s/g, ''),
     }
@@ -496,7 +582,7 @@ if (new URLSearchParams(location.search).has('test')) {
   esit(ean13Hane('590123412345'), '7', 'kontrol hanesi 2')
   // Virgüllü fiyat ayraç sayılmamalı: sekme varsa ayraç sekmedir.
   esit(ayikla('Çay\t8690000000012\t145,90')[0], 
-       { ad: 'Çay', adet: 1, eskiFiyat: '', fiyat: '145,90', kod: '8690000000012' }, 'sekme ayracı')
+       { ad: 'Çay', adet: 1, fiyat: '145,90', kod: '8690000000012' }, 'sekme ayracı')
   esit(ayikla('Çay,869,20,3')[0].adet, 3, 'virgül ayracı')
   esit(hazirla(ayikla('x\t869000000001\t5'), 'EAN13')[0].kod, '8690000000012', '12 haneye kontrol eklenir')
   esit(hazirla(ayikla('x\t8690000000013\t5'), 'EAN13')[0].uyari.anahtar, 'hataKontrol', 'yanlış kontrol hanesi')
@@ -578,9 +664,6 @@ function uygulaDil() {
   history.replaceState(null, '', u)
 }
 
-/** İndirim yüzdesi: virgüllü Türkçe yazımı da okuyabilmek için önce noktaya çeviriyoruz. */
-const sayiya = (v) => Number(String(v).replace(/\s/g, '').replace(',', '.'))
-
 function ciz() {
   const mod = $('mod').value
   const tip = $('tip').value
@@ -641,15 +724,10 @@ function ciz() {
   etiketlerEl.replaceChildren(...etiketler.map((x) => {
     const el = document.createElement('div')
     el.className = 'etiket etiket--' + sablon
-    const yeni = sayiya(x.fiyat), eski = sayiya(x.eskiFiyat)
-    const indirimVar = Number.isFinite(eski) && Number.isFinite(yeni) && eski > yeni && yeni > 0
-    const yuzde = indirimVar ? Math.round((1 - yeni / eski) * 100) : 0
     const kac = (s) => String(s).replace(/</g, '&lt;')
     const ad = adGoster && x.ad ? `<span class="etiket__ad">${kac(x.ad)}</span>` : ''
     const fiyat = !fiyatGoster || !x.fiyat ? ''
-      : indirimVar
-        ? `<span class="etiket__fiyat etiket__fiyat--indirim"><s class="etiket__eski">${kac(x.eskiFiyat)} ₺</s><b>${kac(x.fiyat)} ₺</b><i class="etiket__yuzde">%${yuzde}</i></span>`
-        : `<span class="etiket__fiyat">${kac(x.fiyat)} ₺</span>`
+      : `<span class="etiket__fiyat">${kac(x.fiyat)} ₺</span>`
     const kodu = `<svg data-kod="${kac(x.kod)}"></svg>`
     el.innerHTML =
       sablon === 'sade' ? kodu

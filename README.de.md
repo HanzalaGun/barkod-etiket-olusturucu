@@ -18,11 +18,21 @@ Macht aus einer Produktliste druckfertige Barcode-Etiketten. Eine einzige
   eigenes mm-Maß für einen **Thermo-Etikettendrucker**. Im Rollenmodus bekommt
   jedes Etikett seine eigene Seite.
 - **Mengenspalte** — wie viele Etiketten desselben Produkts gedruckt werden.
-- **Spalte für den alten Preis** — durchgestrichen, mit Rabatt in Prozent.
+- Drei Layouts, Schriftgröße, fett/kursiv, Name oder Preis ausblenden.
 - Vier Layouts, Schriftgröße, fett/kursiv, Name oder Preis ausblenden.
 
 Es wird nichts verschickt: Ihre Liste verlässt den Browser nicht, es gibt keinen
 Server.
+
+<br>
+
+## Schwesterwerkzeug
+
+Wenn Sie ein Preisschild fürs Regal brauchen, ist das ein eigenes Werkzeug:
+[**Regal- und Preisschild-Generator**](https://github.com/HanzalaGun/raf-ve-fiyat-etiketi)
+— er berechnet den Grundpreis selbst und benennt jede von der türkischen
+Preisauszeichnungsverordnung geforderte Angabe, die fehlt. Hier geht es um den
+Code, der gescannt wird; dort um den Preis, der gelesen wird.
 
 <br>
 
@@ -34,10 +44,9 @@ Ein Produkt je Zeile, Spalten getrennt durch **Tabulator**, **Semikolon** oder
 ```
 Gemahlener Kaffee	8690000000012	45	2
 Tee	869000000002	20
-Tee im Angebot	8690000000012	20	1	35
 ```
 
-`Name · Barcode · Preis · Menge · alter Preis` — eine leere Menge zählt als 1.
+`Name · Barcode · Preis · Menge` — eine leere Menge zählt als 1.
 
 Fehlt in einer Zeile jedes dieser drei Trennzeichen, wird auf das Komma
 zurückgegriffen. Das Komma ist bewusst die letzte Wahl: türkische Preise werden

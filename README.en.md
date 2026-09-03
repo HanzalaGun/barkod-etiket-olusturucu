@@ -18,11 +18,25 @@ no install, no build step, no server. Double-click and it opens.
   mm size for a **thermal label printer**. In roll mode each label gets its own
   page.
 - **Quantity column** — how many labels of the same product to print.
-- **Old price column** — struck-through old price with the discount percentage.
-- Four layouts, text scale, bold/italic, hiding the name or the price.
+- Three layouts, text scale, bold/italic, hiding the name or the price.
+
+A price-led label, the discount percentage and the place of production are **not**
+here — those are what the regulation asks of a shelf label, and they live in the
+[shelf and price label maker](https://github.com/HanzalaGun/raf-ve-fiyat-etiketi).
+This tool is for the code that gets scanned; that one is for the price that gets read.
 
 Nothing is sent anywhere: the list you type never leaves the browser, there is
 no server.
+
+<br>
+
+## Sibling tool
+
+If you need a price label for the shelf, that is a separate tool:
+[**shelf and price label maker**](https://github.com/HanzalaGun/raf-ve-fiyat-etiketi)
+— it works out the unit price itself and names any field the Turkish
+price-label regulation requires but you left blank. This tool is for the code
+that gets scanned; that one is for the price that gets read.
 
 <br>
 
@@ -33,10 +47,10 @@ One product per line, columns separated by a **tab**, **semicolon** or **pipe**:
 ```
 Ground coffee	8690000000012	45	2
 Tea	869000000002	20
-Tea on offer	8690000000012	20	1	35
 ```
 
-`name · barcode · price · quantity · old price` — a blank quantity counts as 1.
+`name · barcode · price · quantity` — a blank quantity counts as 1. The price is
+optional; the till reads it from the code anyway.
 
 If a line has none of those three separators, it falls back to the comma. The
 comma is deliberately the last resort: Turkish prices are written `145,90`, and
