@@ -2,7 +2,7 @@
 <html lang="tr">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Barkod etiket oluşturucu — ürün etiketi hazırla ve yazdır</title>
+<title>Barkod oluşturucu (A4 etiket baskısı) — ürün etiketi hazırla ve yazdır</title>
 <meta name="description" content="Ürün listesinden EAN-13 veya Code 128 barkodlu etiket sayfası hazırlar. A4 etiket tabakası ve termal etiket yazıcısı için. Tarayıcıda çalışır, veri sunucuya gitmez.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230B0B0D'/><g fill='%23FF5A1F'><rect x='2' y='3' width='1.4' height='10'/><rect x='4.4' y='3' width='.8' height='10'/><rect x='6.2' y='3' width='1.8' height='10'/><rect x='9' y='3' width='.8' height='10'/><rect x='10.8' y='3' width='1.4' height='10'/><rect x='13.2' y='3' width='.8' height='10'/></g></svg>">
 <!-- Diller ayrı adresler: ?dil=xx . Tek dosya kalıyor ama her dil kendi
@@ -263,9 +263,9 @@ const YORE = { tr: 'tr-TR', en: 'en-US', ru: 'ru-RU', de: 'de-DE', ar: 'ar-EG-u-
 
 const METIN = {
   tr: {
-    baslik: 'Barkod etiket oluşturucu — ürün etiketi hazırla ve yazdır',
+    baslik: 'Barkod oluşturucu (A4 etiket baskısı) — ürün etiketi hazırla ve yazdır',
     aciklama: 'Ürün listesinden EAN-13 veya Code 128 barkodlu etiket sayfası hazırlar. A4 etiket tabakası ve termal etiket yazıcısı için. Tarayıcıda çalışır, veri sunucuya gitmez.',
-    h1: 'Barkod etiket oluşturucu',
+    h1: 'Barkod oluşturucu (A4 etiket baskısı)',
     ozet: 'Ürün listesini yapıştırın, barkodlu etiket sayfasını yazdırın. A4 etiket tabakası veya termal etiket yazıcısı için. Her şey tarayıcıda oluyor — girdiğiniz liste hiçbir sunucuya gitmiyor.',
     ucretsiz: 'ücretsiz, üyeliksiz',
     girdiAnlat: 'Ürünler — her satıra bir ürün: <b>ad · barkod · fiyat · adet · eski fiyat</b> (sekme, noktalı virgül veya boru ile ayır; adet boşsa 1. Fiyatta virgül kullanabilirsiniz. Beşinci sütuna eski fiyatı yazarsanız etikette üstü çizili çıkar ve indirim yüzdesi hesaplanır.)',
@@ -291,9 +291,9 @@ const METIN = {
     altSite: 'hanzala.com.tr', altAraclar: 'başka ücretsiz araçlar',
   },
   en: {
-    baslik: 'Barcode label maker — build and print product labels',
+    baslik: 'Barcode generator (A4 label printing) — build and print product labels',
     aciklama: 'Turns a product list into a printable sheet of EAN-13 or Code 128 labels, for A4 label sheets and thermal label printers. Runs in your browser; nothing is sent to a server.',
-    h1: 'Barcode label maker',
+    h1: 'Barcode generator (A4 label printing)',
     ozet: 'Paste your product list and print the label sheet. For A4 label sheets or a thermal label printer. Everything happens in your browser — the list you type never reaches a server.',
     ucretsiz: 'free, no sign-up',
     girdiAnlat: 'Products — one per line: <b>name · barcode · price · quantity · old price</b> (separate with a tab, semicolon or pipe; blank quantity means 1. Prices may use a comma. Put an old price in the fifth column and the label shows it struck through with the discount percentage.)',
@@ -319,9 +319,9 @@ const METIN = {
     altSite: 'hanzala.com.tr', altAraclar: 'more free tools',
   },
   ru: {
-    baslik: 'Генератор штрихкодовых этикеток — подготовка и печать',
+    baslik: 'Генератор штрихкодов (печать этикеток A4) — подготовка и печать',
     aciklama: 'Превращает список товаров в лист этикеток со штрихкодом EAN-13 или Code 128 — для листов А4 и термопринтеров. Работает в браузере, данные никуда не отправляются.',
-    h1: 'Генератор штрихкодовых этикеток',
+    h1: 'Генератор штрихкодов (печать этикеток A4)',
     ozet: 'Вставьте список товаров и распечатайте лист этикеток. Для листов А4 или термопринтера этикеток. Всё происходит в браузере — введённый список никуда не уходит.',
     ucretsiz: 'бесплатно, без регистрации',
     girdiAnlat: 'Товары — по одному в строке: <b>название · штрихкод · цена · количество · старая цена</b> (разделяйте табуляцией, точкой с запятой или вертикальной чертой; пустое количество — это 1. В цене можно ставить запятую. Старая цена в пятом столбце выводится зачёркнутой, со скидкой в процентах.)',
@@ -347,9 +347,9 @@ const METIN = {
     altSite: 'hanzala.com.tr', altAraclar: 'другие бесплатные инструменты',
   },
   de: {
-    baslik: 'Barcode-Etiketten erstellen — Produktetiketten bauen und drucken',
+    baslik: 'Barcode-Generator (A4-Etikettendruck) — Produktetiketten bauen und drucken',
     aciklama: 'Macht aus einer Produktliste einen druckfertigen Etikettenbogen mit EAN-13 oder Code 128 — für A4-Etikettenbögen und Thermodrucker. Läuft im Browser, es werden keine Daten gesendet.',
-    h1: 'Barcode-Etiketten erstellen',
+    h1: 'Barcode-Generator (A4-Etikettendruck)',
     ozet: 'Produktliste einfügen, Etikettenbogen drucken. Für A4-Etikettenbögen oder einen Thermo-Etikettendrucker. Alles passiert im Browser — Ihre Liste verlässt das Gerät nicht.',
     ucretsiz: 'kostenlos, ohne Anmeldung',
     girdiAnlat: 'Produkte — eines je Zeile: <b>Name · Barcode · Preis · Menge · alter Preis</b> (mit Tabulator, Semikolon oder senkrechtem Strich trennen; leere Menge heißt 1. Im Preis ist ein Komma erlaubt. Ein alter Preis in der fünften Spalte erscheint durchgestrichen, mit Rabatt in Prozent.)',
@@ -375,9 +375,9 @@ const METIN = {
     altSite: 'hanzala.com.tr', altAraclar: 'weitere kostenlose Werkzeuge',
   },
   ar: {
-    baslik: 'مولّد ملصقات الباركود — جهّز ملصقات المنتجات واطبعها',
+    baslik: 'مولّد الباركود (طباعة بطاقات A4) — جهّز ملصقات المنتجات واطبعها',
     aciklama: 'يحوّل قائمة المنتجات إلى صفحة ملصقات بباركود EAN-13 أو Code 128، لأوراق A4 ولطابعات الملصقات الحرارية. يعمل داخل المتصفح ولا تُرسل أي بيانات.',
-    h1: 'مولّد ملصقات الباركود',
+    h1: 'مولّد الباركود (طباعة بطاقات A4)',
     ozet: 'الصق قائمة المنتجات واطبع صفحة الملصقات. لأوراق ملصقات A4 أو لطابعة ملصقات حرارية. كل شيء يجري داخل متصفحك — القائمة التي تكتبها لا تصل إلى أي خادم.',
     ucretsiz: 'مجاني، بلا تسجيل',
     girdiAnlat: 'المنتجات — منتج في كل سطر: <b>الاسم · الباركود · السعر · الكمية · السعر القديم</b> (افصل بمسافة جدولة أو فاصلة منقوطة أو شرطة رأسية؛ الكمية الفارغة تعني 1. يمكن استخدام الفاصلة في السعر. إذا كتبت سعرًا قديمًا في العمود الخامس يظهر مشطوبًا مع نسبة الخصم.)',

@@ -1,6 +1,6 @@
 **Türkçe** · [English](README.en.md) · [Русский](README.ru.md) · [Deutsch](README.de.md) · [العربية](README.ar.md)
 
-# Barkod etiket oluşturucu
+# Barkod oluşturucu (A4 etiket baskısı)
 
 Ürün listesinden yazdırılabilir barkod etiketi hazırlar. Tek bir `index.html`
 dosyası — kurulum, derleme, sunucu yok. Çift tıklayınca açılır.

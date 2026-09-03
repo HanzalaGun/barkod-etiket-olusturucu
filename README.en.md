@@ -1,6 +1,6 @@
 [Türkçe](README.md) · **English** · [Русский](README.ru.md) · [Deutsch](README.de.md) · [العربية](README.ar.md)
 
-# Barcode label maker
+# Barcode generator (A4 label printing)
 
 Turns a product list into printable barcode labels. A single `index.html` file —
 no install, no build step, no server. Double-click and it opens.

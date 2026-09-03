@@ -1,6 +1,6 @@
 [Türkçe](README.md) · [English](README.en.md) · [Русский](README.ru.md) · **Deutsch** · [العربية](README.ar.md)
 
-# Barcode-Etiketten erstellen
+# Barcode-Generator (A4-Etikettendruck)
 
 Macht aus einer Produktliste druckfertige Barcode-Etiketten. Eine einzige
 `index.html` — keine Installation, kein Build, kein Server. Doppelklick genügt.
