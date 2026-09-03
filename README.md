@@ -40,6 +40,26 @@ yapıyordu — kullanıcı tek etiket isterken 90 etiket basılıyordu.
 
 <br>
 
+## Diller
+
+Türkçe, İngilizce, Rusça, Almanca ve Arapça — sitedeki dillerin aynısı.
+Ölçüler, örnek liste, tabaka adları ve uyarı metinleri de çevriliyor:
+`52,5×29,7 mm` Rusçada `52,5×29,7 мм`, İngilizcede `52.5×29.7 mm` oluyor.
+
+Arapça sağdan sola diziliyor. İki istisna var: ürün listesi kutusu soldan sağa
+ve sola yaslı kalıyor (insanlar bu listeyi Excel'den yapıştırıyor, sütunlar
+yapıştırıldığı sırada durmalı), etiket önizlemesi de öyle — o kutu baskı
+çıktısı, sayfa yönünden etkilenmemeli.
+
+Her dilin kendi adresi var: `index.html?dil=en`. Bağlantıyı paylaşınca aynı
+dille açılıyor, `hreflang` etiketleri de bu adresleri gösteriyor. Dil seçilmezse
+tarayıcının dili kullanılıyor, o da tanınmıyorsa Türkçe.
+
+Örnek liste yalnızca siz henüz yazmadıysanız dile göre değişiyor — yazdığınız
+liste dil değiştirince silinmiyor.
+
+<br>
+
 ## Kullanım
 
 `index.html` dosyasını indirip çift tıklayın. Barkod çizimi için
@@ -54,8 +74,9 @@ bağımlılığı yok.
 ## Sınama
 
 `index.html?test=1` adresini açın. Kontrol hanesi hesabı, ayraç seçimi ve
-barkod doğrulaması için yedi sınama konsola yazılır; biri kalırsa sekme
-başlığı `HATA:` olur.
+barkod doğrulaması için sınamalar çalışır; ardından beş dilin çeviri
+tablosunda anahtarların ve düzen adlarının tam olduğu kontrol edilir. Biri
+kalırsa sekme başlığı `HATA:` olur.
 
 <br>
 
