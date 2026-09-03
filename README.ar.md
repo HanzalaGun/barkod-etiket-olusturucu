@@ -5,7 +5,7 @@
 يحوّل قائمة المنتجات إلى ملصقات باركود جاهزة للطباعة. ملف `index.html` واحد —
 بلا تثبيت، بلا بناء، بلا خادم. ينفتح بنقرة مزدوجة.
 
-**النسخة العاملة:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu?dil=ar)
+**النسخة العاملة:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu)
 
 <br>
 

@@ -6,7 +6,7 @@
 `index.html` — без установки, без сборки, без сервера. Открывается двойным
 щелчком.
 
-**Рабочая версия:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu?dil=ru)
+**Рабочая версия:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu)
 
 <br>
 

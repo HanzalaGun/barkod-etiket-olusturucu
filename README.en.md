@@ -5,7 +5,7 @@
 Turns a product list into printable barcode labels. A single `index.html` file —
 no install, no build step, no server. Double-click and it opens.
 
-**Live version:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu?dil=en)
+**Live version:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu)
 
 <br>
 

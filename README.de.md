@@ -5,7 +5,7 @@
 Macht aus einer Produktliste druckfertige Barcode-Etiketten. Eine einzige
 `index.html` — keine Installation, kein Build, kein Server. Doppelklick genügt.
 
-**Laufende Fassung:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu?dil=de)
+**Laufende Fassung:** [hanzala.com.tr/araclar/barkod-etiket-olusturucu](https://hanzala.com.tr/araclar/barkod-etiket-olusturucu)
 
 <br>
 
