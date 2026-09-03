@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="tr">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Barkod etiket oluşturucu — ürün etiketi hazırla ve yazdır</title>
+<meta name="description" content="Ürün listesinden EAN-13 veya Code 128 barkodlu etiket sayfası hazırlar. A4 etiket tabakası ve termal etiket yazıcısı için. Tarayıcıda çalışır, veri sunucuya gitmez.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%230B0B0D'/><g fill='%23FF5A1F'><rect x='2' y='3' width='1.4' height='10'/><rect x='4.4' y='3' width='.8' height='10'/><rect x='6.2' y='3' width='1.8' height='10'/><rect x='9' y='3' width='.8' height='10'/><rect x='10.8' y='3' width='1.4' height='10'/><rect x='13.2' y='3' width='.8' height='10'/></g></svg>">
+
+<style>
+:root{
+  --sc-canvas:#0B0B0D; --sc-surface:#131317;
+  --sc-ink:#ECECEE;    --sc-ink-soft:#8B8B96;
+  --sc-accent:#FF5A1F; --sc-accent-ink:#0B0B0D;
+  --sc-hata:#e5484d;
+  --sc-font-display: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+  --sc-font-text: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --hairline: color-mix(in srgb, var(--sc-ink) 13%, transparent);
+  --hairline-2: color-mix(in srgb, var(--sc-ink) 22%, transparent);
+}
+*{box-sizing:border-box}
+input,select,textarea{accent-color:var(--sc-accent)}
+body{margin:0; background:var(--sc-canvas); color:var(--sc-ink);
+  font-family:var(--sc-font-text); font-size:15px; line-height:1.6}
+.sayfa{max-width:860px; margin:0 auto; padding:40px 20px 80px}
+h1{font-family:var(--sc-font-display); font-size:23px; letter-spacing:-.01em; margin:0 0 10px}
+.ozet{color:var(--sc-ink-soft); margin:0 0 6px}
+.ust-bag{font-family:var(--sc-font-display); font-size:11px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--sc-ink-soft); margin:0 0 26px}
+.ust-bag a{color:var(--sc-accent)}
+footer{margin-top:34px; padding-top:18px; border-top:1px solid var(--hairline);
+  font-size:12px; color:var(--sc-ink-soft)}
+footer a{color:var(--sc-accent)}
+
+/* ---------- araç ---------- */
+.arac{border:1px solid var(--hairline); background:var(--sc-surface); padding:16px; margin:24px 0}
+.arac input{width:100%; background:var(--sc-canvas); border:1px solid var(--hairline);
+  color:var(--sc-ink); padding:8px 10px; font:inherit; font-size:14px}
+.arac input:focus{outline:none; border-color:var(--sc-accent)}
+.arac__alanlar{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
+.arac__alanlar label{flex:1 1 170px; font-family:var(--sc-font-display); font-size:11px;
+  color:var(--sc-ink-soft); text-transform:uppercase; letter-spacing:.06em}
+.arac__alanlar input{margin-top:6px}
+.arac__not{margin-top:8px; font-size:12px; color:var(--sc-ink-soft)}
+.arac__uyari{margin-top:12px; font-size:13px; color:var(--sc-hata)}
+.arac__dugmeler{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+.arac__dugmeler button{background:none; border:1px solid var(--hairline-2); color:var(--sc-ink);
+  padding:9px 14px; font:inherit; font-size:12px; cursor:pointer;
+  font-family:var(--sc-font-display); letter-spacing:.04em}
+.arac__dugmeler button:hover:not(:disabled){border-color:var(--sc-accent); color:var(--sc-accent)}
+.arac__dugmeler button:disabled{opacity:.4; cursor:default}
+
+.arac__blok{display:block; font-family:var(--sc-font-display); font-size:11px;
+  letter-spacing:.05em; text-transform:uppercase; color:var(--sc-ink-soft); margin-bottom:14px}
+.arac__blok b{color:var(--sc-ink)}
+.arac__blok textarea{width:100%; margin-top:8px; background:var(--sc-canvas);
+  border:1px solid var(--hairline); color:var(--sc-ink); padding:10px; font:inherit;
+  font-family:ui-monospace,monospace; font-size:13px; text-transform:none; letter-spacing:0}
+.arac select{width:100%; margin-top:6px; background:var(--sc-canvas); border:1px solid var(--hairline);
+  color:var(--sc-ink); padding:9px 10px; font:inherit; font-size:14px}
+.arac__onay{display:flex; align-items:center; gap:7px; flex:0 0 auto; align-self:end;
+  padding-bottom:9px; text-transform:none; letter-spacing:0; font-size:13px}
+.arac__onay input{width:auto; margin:0}
+.arac__sayi{font-family:var(--sc-font-display); font-size:12px; color:var(--sc-ink-soft);
+  align-self:center; margin-inline-end:auto}
+ul.arac__uyari{margin:12px 0 0 18px; padding:0}
+ul.arac__uyari li{font-size:13px; color:var(--sc-hata)}
+.arac__hazir{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:10px;
+  font-family:var(--sc-font-display); font-size:11px; color:var(--sc-ink-soft)}
+.arac__hazir button{padding:4px 10px; border:1px solid var(--hairline); background:none;
+  color:var(--sc-ink-soft); font:inherit; cursor:pointer; border-radius:999px}
+.arac__hazir button:hover{color:var(--sc-ink); border-color:var(--sc-ink-soft)}
+[hidden]{display:none !important}
+
+/* Önizleme kutusu ekranda kayıyor; 500 etiketlik bir liste sayfayı metrelerce
+   uzatmasın diye. Baskıda kutu şeffaflaşıyor (aşağıdaki @media print). */
+.etiketler-kutu{margin-top:20px; max-height:70vh; overflow:auto; background:#fff;
+  border:1px solid var(--hairline)}
+.etiketler{display:grid; grid-template-columns:repeat(var(--ets),var(--etg));
+  gap:0; background:#fff; padding:6mm 4mm; justify-content:center}
+/* Rulo modunda tek sütun: her etiket kendi sayfasına gidiyor. */
+.etiketler--rulo{grid-template-columns:var(--etg); padding:4mm; gap:3mm}
+/* Ekranda ilk 20; "hepsini göster" açılınca hepsi. Baskıya HER ZAMAN hepsi
+   gidiyor — DOM'da hepsi duruyor, gizleme yalnızca ekran kuralı. */
+.etiketler:not(.etiketler--acik) > .etiket:nth-child(n+21){display:none}
+.etiket{width:var(--etg); height:var(--ety); display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1mm; padding:var(--etic,1.5mm);
+  color:#000; overflow:hidden; box-sizing:border-box; outline:1px dashed #ddd}
+.etiket__ad{font-size:calc(9px * var(--et-olcek,1)); font-weight:var(--et-kalin,600);
+  font-style:var(--et-egik,normal);
+  text-align:center; line-height:1.15; max-height:2.4em; overflow:hidden}
+.etiket__fiyat{font-size:calc(13px * var(--et-olcek,1)); font-weight:800}
+.etiket__fiyat--indirim{display:flex; align-items:baseline; gap:1mm}
+.etiket__eski{font-size:.7em; font-weight:400; opacity:.7}
+.etiket__yuzde{font-size:.62em; font-style:normal; font-weight:700;
+  background:#000; color:#fff; padding:0 .3em; border-radius:2px}
+/* viewBox JS'te yazılıyor; burada svg tam genişliği kaplayıp oranıyla
+   yükseklik alıyor. */
+.etiket svg{display:block; width:100%; height:auto; max-height:100%}
+.etiket--fiyat-baskin .etiket__ad{font-size:calc(7.5px * var(--et-olcek,1)); opacity:.85}
+.etiket--fiyat-baskin .etiket__fiyat{font-size:calc(20px * var(--et-olcek,1)); line-height:1}
+.etiket--yan-yana .etiket__satir{display:flex; align-items:baseline;
+  justify-content:space-between; gap:2mm; width:100%}
+.etiket--yan-yana .etiket__ad{text-align:left; max-height:1.3em}
+.etiket--sade{justify-content:center}
+
+/* Baskı: sayfada YALNIZCA etiketler kalsın. Her şey kapanıyor, yalnızca etiket
+   kutusunun ata zinciri `:has()` ile geri açılıyor — sayfa yapısı değişse de
+   kural bozulmuyor. */
+@media print{
+  body *{display:none !important}
+  *:has(.baski-alani){display:block !important; border:none !important;
+    background:none !important; padding:0 !important; margin:0 !important}
+  /* Kutunun İÇİNDEKİ HER ŞEY tarayıcı varsayılanına dönüyor. Yalnızca
+     `.etiket svg{display:block}` yazılsaydı svg'nin İÇİNDEKİ rect ve text
+     düğümleri `body *` kuralından display:none kalır, PDF'te barkodlar boş
+     çıkardı. `revert` o düğümleri de geri açıyor. */
+  .baski-alani, .baski-alani *{display:revert !important}
+  .baski-alani{display:block !important; max-height:none !important;
+    overflow:visible !important; border:none !important; margin:0 !important}
+  .etiketler{display:grid !important; margin:0; padding:0; background:#fff}
+  /* Ekrandaki önizleme kırpması baskıyı ETKİLEMEZ. */
+  .etiketler > .etiket{display:flex !important; outline:none}
+  /* `revert` svg'yi satır içi yapıyor; ortalamayı geri kuruyoruz. */
+  .etiket svg{display:block !important; margin:0 auto !important}
+  .etiket--yan-yana .etiket__satir{display:flex !important}
+  /* Rulo baskısında KAP da etiket genişliğine sabitleniyor. Kap serbest
+     bırakılınca sayfadan geniş kalıyor ve Chrome "sığdır" için TÜM içeriği
+     küçültüyor — küçültmeyi sol üstten yaptığı için etiket sola yaslı çıkıyor. */
+  html,body{width:auto !important; min-width:0 !important;
+    margin:0 !important; padding:0 !important}
+  .baski-alani:has(.etiketler--rulo){
+    width:var(--etg) !important; max-width:var(--etg) !important}
+  .etiketler--rulo{padding:0; gap:0;
+    width:var(--etg) !important; max-width:var(--etg) !important;
+    grid-template-columns:var(--etg) !important}
+  .etiketler--rulo > .etiket{break-after:page}
+  .etiketler--rulo > .etiket:last-child{break-after:auto}
+  @page{size:A4; margin:6mm 4mm}
+}
+</style>
+
+<body>
+<main class="sayfa">
+  <h1>Barkod etiket oluşturucu</h1>
+  <p class="ozet">Ürün listesini yapıştırın, barkodlu etiket sayfasını yazdırın. A4 etiket
+    tabakası veya termal etiket yazıcısı için. Her şey tarayıcıda oluyor — girdiğiniz
+    liste hiçbir sunucuya gitmiyor.</p>
+  <p class="ust-bag"><a href="https://hanzala.com.tr/araclar/barkod-etiket-olusturucu">hanzala.com.tr</a> · ücretsiz, üyeliksiz</p>
+
+  <div class="arac">
+    <!-- Rulo modunda her etiket kendi sayfası; @page ölçüsü inline style ile
+         verilemiyor, bu yüzden kural etiket boyu değiştikçe buraya basılıyor. -->
+    <style id="sayfaKurali"></style>
+
+    <label class="arac__blok">
+      Ürünler — her satıra bir ürün: <b>ad · barkod · fiyat · adet · eski fiyat</b>
+      (sekme, noktalı virgül veya boru ile ayır; adet boşsa 1. Fiyatta virgül
+      kullanabilirsiniz. Beşinci sütuna eski fiyatı yazarsanız etikette üstü çizili
+      çıkar ve indirim yüzdesi hesaplanır.)
+      <textarea id="ham" rows="6"></textarea>
+    </label>
+
+    <div class="arac__alanlar">
+      <label>Çıktı
+        <select id="mod">
+          <option value="tabaka">A4 etiket tabakası</option>
+          <option value="rulo">Etiket yazıcısı — özel boyut</option>
+        </select>
+      </label>
+
+      <label id="tabakaAlan">Etiket tabakası
+        <select id="tabaka"></select>
+      </label>
+
+      <label class="ruloAlan" hidden>En (mm)
+        <input id="ozelG" inputmode="decimal" value="50">
+      </label>
+      <label class="ruloAlan" hidden>Boy (mm)
+        <input id="ozelY" inputmode="decimal" value="30">
+      </label>
+      <label class="ruloAlan" hidden>İç boşluk (mm)
+        <input id="ozelIc" inputmode="decimal" value="2">
+      </label>
+
+      <label>Barkod tipi
+        <select id="tip">
+          <option value="EAN13">EAN-13 (perakende)</option>
+          <option value="CODE128">Code 128 (harf de alır)</option>
+        </select>
+      </label>
+      <label>Düzen
+        <select id="sablon"></select>
+      </label>
+      <label>Yazı ölçeği
+        <input id="punto" type="range" min="0.6" max="2" step="0.1" value="1">
+      </label>
+      <label class="arac__onay"><input id="adGoster" type="checkbox" checked> ürün adı</label>
+      <label class="arac__onay"><input id="fiyatGoster" type="checkbox" checked> fiyat</label>
+      <label class="arac__onay"><input id="kalin" type="checkbox" checked> kalın</label>
+      <label class="arac__onay"><input id="egik" type="checkbox"> eğik</label>
+    </div>
+
+    <div class="arac__hazir" id="ruloHazir" hidden><span>hazır ölçüler:</span></div>
+
+    <ul class="arac__uyari" id="hatalar" hidden></ul>
+    <p class="arac__uyari" id="kirpma" hidden></p>
+
+    <div class="arac__dugmeler">
+      <span class="arac__sayi" id="sayac"></span>
+      <button id="hepsi" type="button" hidden></button>
+      <button id="yazdir" type="button">yazdır / PDF</button>
+    </div>
+    <p class="arac__not" id="onizlemeNot" hidden></p>
+
+    <!-- Ölçüler DIŞ kutuda: baskıda kabın kendisi de etiket genişliğine
+         sabitlenmeli, yoksa Chrome sayfayı sığdırmak için her şeyi küçültüyor. -->
+    <div class="etiketler-kutu baski-alani" id="kutu">
+      <div class="etiketler" id="etiketler"></div>
+    </div>
+  </div>
+
+  <footer>
+    Kaynak kodu MIT lisansı ile açık — istediğiniz gibi kullanın, değiştirin.
+    Bu araç <a href="https://hanzala.com.tr">hanzala.com.tr</a> için yazıldı;
+    orada <a href="https://hanzala.com.tr/araclar">başka ücretsiz araçlar</a> da var.
+  </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.12.3/dist/JsBarcode.all.min.js"></script>
+<script>
+/* A4 210×297 mm. Etiket ölçüleri piyasadaki yaygın tabakalara göre. */
+const TABAKA = [
+  { ad: '70×37 mm — 3×8 (24 etiket)', g: 70, y: 37, sutun: 3 },
+  { ad: '105×37 mm — 2×8 (16 etiket)', g: 105, y: 37, sutun: 2 },
+  { ad: '52,5×29,7 mm — 4×10 (40 etiket)', g: 52.5, y: 29.7, sutun: 4 },
+  { ad: '38×21 mm — 5×13 (65 etiket)', g: 38, y: 21, sutun: 5 },
+  { ad: '105×74 mm — 2×4 (8 etiket)', g: 105, y: 74, sutun: 2 },
+]
+/* Termal etiket yazıcılarında yaygın rulo ölçüleri — hazır başlangıç noktası. */
+const RULO_HAZIR = [
+  { ad: '40×25 mm', g: 40, y: 25 }, { ad: '50×30 mm', g: 50, y: 30 },
+  { ad: '58×40 mm', g: 58, y: 40 }, { ad: '100×50 mm', g: 100, y: 50 },
+]
+/* Etiket düzenleri. Sıralama ve vurgu değişiyor, ölçü değişmiyor. */
+const SABLON = [
+  { anahtar: 'ad-ustte', ad: 'Ad üstte' },
+  { anahtar: 'fiyat-baskin', ad: 'Fiyat baskın' },
+  { anahtar: 'yan-yana', ad: 'Ad ve fiyat yan yana' },
+  { anahtar: 'sade', ad: 'Sade — yalnız barkod' },
+]
+/* Ekranda kaç etiket çizilsin. Baskıya HEPSİ gidiyor; bu yalnızca önizleme. */
+const ONIZLEME = 20
+/* Üstünde tarayıcı SVG çizmekte zorlanıyor; sessizce kırpmıyoruz, uyarı basıyoruz. */
+const TAVAN = 500
+
+/** EAN-13 kontrol hanesi: tek konumlar ×1, çift konumlar ×3, toplamın 10'a tümleyeni. */
+const ean13Hane = (on2) => {
+  const d = on2.split('').map(Number)
+  const t = d.reduce((s, n, i) => s + n * (i % 2 === 0 ? 1 : 3), 0)
+  return String((10 - (t % 10)) % 10)
+}
+
+/**
+ * Satırı sütunlara böler.
+ *
+ * Virgül SON çare: Türkçe fiyat "145,90" yazılıyor ve virgülü ayraç saymak
+ * fiyatı 145, adedi 90 yapıyordu — kullanıcı tek etiket isterken sessizce 90
+ * etiket basılıyordu. Satırda sekme, noktalı virgül veya boru varsa ayraç
+ * odur; yoksa virgüle düşülür.
+ */
+const bol = (satir) => {
+  const ayrac = /[\t;|]/.test(satir) ? /[\t;|]/ : /,/
+  return satir.split(ayrac).map((x) => x.trim())
+}
+
+const ayikla = (ham) =>
+  ham.split('\n').map((s) => s.trim()).filter(Boolean).map((s) => {
+    const p = bol(s)
+    return {
+      ad: p[0] || '',
+      adet: Math.max(1, Math.min(99, Number(p[3]) || 1)),
+      eskiFiyat: p[4] || '',
+      fiyat: p[2] || '',
+      kod: (p[1] || '').replace(/\s/g, ''),
+    }
+  })
+
+const sayi = (x, alt, ust, varsayilan) => {
+  const n = Number(String(x).replace(',', '.'))
+  return Number.isFinite(n) && n >= alt && n <= ust ? n : varsayilan
+}
+
+/** Ham satırlara barkod tipini uygular; düzeltilebileni düzeltir, olmayanı işaretler. */
+const hazirla = (satirlar, tip) => satirlar.map((s) => {
+  let kod = s.kod, uyari = ''
+  if (tip === 'EAN13') {
+    const rakam = kod.replace(/\D/g, '')
+    if (rakam.length === 12) kod = rakam + ean13Hane(rakam)
+    else if (rakam.length === 13) {
+      kod = rakam
+      if (ean13Hane(rakam.slice(0, 12)) !== rakam[12]) uyari = 'kontrol hanesi tutmuyor'
+    } else uyari = 'EAN-13 için 12 veya 13 hane gerekir (' + rakam.length + ' girildi)'
+  }
+  return { ...s, kod, uyari }
+})
+
+/* ---- kendi kendini sınama: index.html?test=1 ---- */
+if (new URLSearchParams(location.search).has('test')) {
+  const esit = (a, b, ad) => {
+    const ok = JSON.stringify(a) === JSON.stringify(b)
+    document.title = ok ? document.title : 'HATA: ' + ad
+    console[ok ? 'log' : 'error'](ok ? 'gecti' : 'KALDI', ad, a, b)
+    if (!ok) throw new Error(ad)
+  }
+  esit(ean13Hane('869000000001'), '2', 'kontrol hanesi')
+  esit(ean13Hane('590123412345'), '7', 'kontrol hanesi 2')
+  // Virgüllü fiyat ayraç sayılmamalı: sekme varsa ayraç sekmedir.
+  esit(ayikla('Çay\t8690000000012\t145,90')[0], 
+       { ad: 'Çay', adet: 1, eskiFiyat: '', fiyat: '145,90', kod: '8690000000012' }, 'sekme ayracı')
+  esit(ayikla('Çay,869,20,3')[0].adet, 3, 'virgül ayracı')
+  esit(hazirla(ayikla('x\t869000000001\t5'), 'EAN13')[0].kod, '8690000000012', '12 haneye kontrol eklenir')
+  esit(hazirla(ayikla('x\t8690000000013\t5'), 'EAN13')[0].uyari, 'kontrol hanesi tutmuyor', 'yanlış kontrol hanesi')
+  esit(hazirla(ayikla('x\tABC-123\t5'), 'CODE128')[0].uyari, '', 'Code 128 harf alır')
+  console.log('tüm sınamalar geçti')
+}
+
+/* ---------- arayüz ---------- */
+const $ = (id) => document.getElementById(id)
+const ham = $('ham'), etiketlerEl = $('etiketler'), kutu = $('kutu')
+let hepsiniGoster = false
+
+ham.value = 'Türk kahvesi\t8690000000012\t45\t2\nÇay\t869000000002\t20'
+$('tabaka').innerHTML = TABAKA.map((x, i) => `<option value="${i}">${x.ad}</option>`).join('')
+$('sablon').innerHTML = SABLON.map((x) => `<option value="${x.anahtar}">${x.ad}</option>`).join('')
+RULO_HAZIR.forEach((r) => {
+  const b = document.createElement('button')
+  b.type = 'button'; b.textContent = r.ad
+  b.onclick = () => { $('ozelG').value = r.g; $('ozelY').value = r.y; ciz() }
+  $('ruloHazir').append(b)
+})
+
+/** İndirim yüzdesi: virgüllü Türkçe yazımı da okuyabilmek için önce noktaya çeviriyoruz. */
+const sayiya = (v) => Number(String(v).replace(/\s/g, '').replace(',', '.'))
+
+function ciz() {
+  const mod = $('mod').value
+  const tip = $('tip').value
+  const sablon = $('sablon').value
+  const tabaka = Number($('tabaka').value) || 0
+
+  $('tabakaAlan').hidden = mod !== 'tabaka'
+  document.querySelectorAll('.ruloAlan').forEach((e) => { e.hidden = mod !== 'rulo' })
+  $('ruloHazir').hidden = mod !== 'rulo'
+
+  // Ölçü: tabaka modunda hazır tabakadan, rulo modunda kullanıcıdan.
+  const g = mod === 'tabaka' ? TABAKA[tabaka].g : sayi($('ozelG').value, 10, 210, 50)
+  const y = mod === 'tabaka' ? TABAKA[tabaka].y : sayi($('ozelY').value, 8, 297, 30)
+  const ic = mod === 'tabaka' ? 1.5 : sayi($('ozelIc').value, 0, 20, 2)
+  const sutun = mod === 'tabaka' ? TABAKA[tabaka].sutun : 1
+  $('sayfaKurali').textContent =
+    mod === 'rulo' ? `@media print{@page{size:${g}mm ${y}mm;margin:0}}` : ''
+
+  const hazir = hazirla(ayikla(ham.value), tip)
+  const hatali = hazir.filter((x) => x.uyari)
+  $('hatalar').hidden = !hatali.length
+  $('hatalar').innerHTML = hatali
+    .map((x) => `<li>${(x.ad || '(adsız)').replace(/</g, '&lt;')}: ${x.uyari}</li>`).join('')
+
+  // Kopya adedi burada açılıyor: aynı ürün adet kadar etiket oluyor.
+  const tum = hazir.filter((x) => x.kod && !x.uyari)
+    .flatMap((x) => Array.from({ length: x.adet }, () => x))
+  const kirpildi = Math.max(0, tum.length - TAVAN)
+  const etiketler = tum.slice(0, TAVAN)
+
+  $('kirpma').hidden = !kirpildi
+  $('kirpma').textContent = kirpildi
+    ? `${tum.length} etiket istendi, ${TAVAN} tanesi basılacak. Kalan ${kirpildi} etiket için listeyi bölün — tarayıcı bundan fazlasını tek seferde çizemiyor.`
+    : ''
+
+  $('sayac').textContent = `${etiketler.length} etiket` +
+    (mod === 'rulo' ? ` · ${g}×${y} mm · her etiket ayrı sayfa` : '')
+  $('hepsi').hidden = etiketler.length <= ONIZLEME
+  $('hepsi').textContent = hepsiniGoster
+    ? `ilk ${ONIZLEME} tanesini göster` : `hepsini göster (${etiketler.length})`
+  $('yazdir').disabled = !etiketler.length
+  $('onizlemeNot').hidden = !(etiketler.length > ONIZLEME && !hepsiniGoster)
+  $('onizlemeNot').textContent =
+    `Önizlemede ilk ${ONIZLEME} etiket var; yazdırınca ${etiketler.length} etiketin hepsi çıkar.`
+
+  const olcek = sayi($('punto').value, 0.6, 2, 1)
+  Object.entries({
+    '--et-egik': $('egik').checked ? 'italic' : 'normal',
+    '--et-kalin': $('kalin').checked ? '700' : '400',
+    '--et-olcek': olcek,
+    '--etg': g + 'mm', '--ety': y + 'mm', '--etic': ic + 'mm', '--ets': sutun,
+  }).forEach(([k, v]) => kutu.style.setProperty(k, v))
+
+  etiketlerEl.className = 'etiketler etiketler--' + mod + (hepsiniGoster ? ' etiketler--acik' : '')
+  const adGoster = $('adGoster').checked, fiyatGoster = $('fiyatGoster').checked
+  etiketlerEl.replaceChildren(...etiketler.map((x) => {
+    const el = document.createElement('div')
+    el.className = 'etiket etiket--' + sablon
+    const yeni = sayiya(x.fiyat), eski = sayiya(x.eskiFiyat)
+    const indirimVar = Number.isFinite(eski) && Number.isFinite(yeni) && eski > yeni && yeni > 0
+    const yuzde = indirimVar ? Math.round((1 - yeni / eski) * 100) : 0
+    const kac = (s) => String(s).replace(/</g, '&lt;')
+    const ad = adGoster && x.ad ? `<span class="etiket__ad">${kac(x.ad)}</span>` : ''
+    const fiyat = !fiyatGoster || !x.fiyat ? ''
+      : indirimVar
+        ? `<span class="etiket__fiyat etiket__fiyat--indirim"><s class="etiket__eski">${kac(x.eskiFiyat)} ₺</s><b>${kac(x.fiyat)} ₺</b><i class="etiket__yuzde">%${yuzde}</i></span>`
+        : `<span class="etiket__fiyat">${kac(x.fiyat)} ₺</span>`
+    const kodu = `<svg data-kod="${kac(x.kod)}"></svg>`
+    el.innerHTML =
+      sablon === 'sade' ? kodu
+      : sablon === 'yan-yana' ? `<span class="etiket__satir">${ad}${fiyat}</span>${kodu}`
+      : `${ad}${kodu}${fiyat}`
+    return el
+  }))
+
+  cizBarkod(y, tip)
+}
+
+/** Barkod yüksekliği etiket boyuna göre; küçük etikette çubuk taşmasın. */
+function cizBarkod(y, tip) {
+  if (typeof JsBarcode !== 'function') return
+  const yukseklik = Math.max(14, Math.min(60, Math.round((y - 2 * 1.5) * 2.2)))
+  etiketlerEl.querySelectorAll('svg[data-kod]').forEach((el) => {
+    try {
+      // Sessiz bölge ŞART: EAN-13 solda 9, sağda 7 modül boşluk istiyor ve ilk
+      // hane çubukların SOLUNA basılıyor. margin:0 iken o hane kırpılıyor ve
+      // çubuklar etiket kenarına dayanıyordu (basılan PDF'te ölçüldü).
+      JsBarcode(el, el.getAttribute('data-kod'), {
+        background: 'transparent', displayValue: true, fontSize: y < 25 ? 9 : 12,
+        format: tip, height: yukseklik, lineColor: '#000',
+        marginBottom: 0, marginLeft: 14, marginRight: 14, marginTop: 0,
+      })
+      // jsbarcode viewBox YAZMIYOR; yalnızca width/height nitelikleri koyuyor.
+      // viewBox yokken CSS ile kutuyu daraltmak içindeki çizimi ölçeklemiyor —
+      // çizim doğal boyutunda kalıp sola yapışıyor. Ekranda etiket geniş olduğu
+      // için görünmüyordu, baskıda 58mm'ye sıkışınca sola yaslı çıkıyordu.
+      const g0 = parseFloat(el.getAttribute('width') || '0')
+      const y0 = parseFloat(el.getAttribute('height') || '0')
+      if (g0 > 0 && y0 > 0) {
+        el.setAttribute('viewBox', `0 0 ${g0} ${y0}`)
+        el.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+        el.removeAttribute('width'); el.removeAttribute('height')
+      }
+    } catch { el.innerHTML = '' }
+  })
+}
+
+document.querySelectorAll('.arac input, .arac select, .arac textarea')
+  .forEach((e) => e.addEventListener('input', ciz))
+$('hepsi').onclick = () => { hepsiniGoster = !hepsiniGoster; ciz() }
+$('yazdir').onclick = () => window.print()
+ciz()
+</script>
